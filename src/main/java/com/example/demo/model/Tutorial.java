@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 public class Tutorial {
-    private long id;
+    private String id;
     private String title;
     private String description;
     private boolean published;
@@ -11,7 +11,7 @@ public class Tutorial {
     
     ;
     
-    Tutorial(long id, String title, String description, Boolean published) {
+    Tutorial(String id, String title, String description, Boolean published) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -24,11 +24,11 @@ public class Tutorial {
         this.published = published;
     }
     
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
     
-    public long getId() {
+    public String getId() {
         return id;
     }
     

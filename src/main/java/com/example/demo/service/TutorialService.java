@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.CreateTutorialDto;
 import com.example.demo.exception.InternalServerException;
+import com.example.demo.mapper.TutorialMapper;
 import com.example.demo.model.Tutorial;
 import com.example.demo.repositary.TutorialRepository;
 import org.slf4j.Logger;
@@ -16,18 +17,16 @@ public class TutorialService {
     
     
     private final TutorialRepository tutorialRepository;
+    private final TutorialMapper tutorialMapper;
     
-    public TutorialService(TutorialRepository tutorialRepository) {
+    public TutorialService(TutorialRepository tutorialRepository, TutorialMapper tutorialMapper) {
+        this.tutorialMapper = tutorialMapper;
         this.tutorialRepository = tutorialRepository;
     }
     
-    public long create(CreateTutorialDto createTutorialDto) {
+    public String create(CreateTutorialDto createTutorialDto) {
         try {
-            Tutorial tutorial = new Tutorial();
-            tutorial.setTitle(createTutorialDto.getTitle());
-            tutorial.setDescription(createTutorialDto.getDescription());
-            tutorial.setPublished(createTutorialDto.getPublished());
-            
+            Tutorial tutorial = this.tutorialMapper.toEntity(createTutorialDto);
             tutorialRepository.save(tutorial);
             return tutorial.getId();
         } catch (DataAccessException e) {
