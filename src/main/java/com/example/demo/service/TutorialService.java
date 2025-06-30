@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.CreateTutorialDto;
-import com.example.demo.exception.InternalServerException;
+import com.example.demo.exception.PostgresErrorHandler;
+import com.example.demo.exception.PostgresErrorMessage;
 import com.example.demo.mapper.TutorialMapper;
 import com.example.demo.model.Tutorial;
 import com.example.demo.repositary.TutorialRepository;
@@ -9,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TutorialService {
@@ -31,7 +34,20 @@ public class TutorialService {
             return tutorial.getId();
         } catch (DataAccessException e) {
             logger.error("Failed to create tutorial {}", e.getMessage(), e);
-            throw new InternalServerException();
+            throw PostgresErrorHandler.mapToHttpException(
+                    e, new PostgresErrorMessage(
+                            "A tutorial with the same title already exists"
+                    )
+            );
+        }
+    }
+    
+    public List<Tutorial> findAll() {
+        try {
+            return this.tutorialRepository.findAll();
+        } catch (DataAccessException e) {
+            logger.error("Failed to find all tutorials");
+            throw PostgresErrorHandler.mapToHttpException(e);
         }
     }
 }
