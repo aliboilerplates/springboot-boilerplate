@@ -11,7 +11,6 @@ public class CreateTutorialDto {
     @NotBlank(message = "Description is required")
     private String description;
     
-    
     @NotNull(message = "Published is required")
     private Boolean published;
     
