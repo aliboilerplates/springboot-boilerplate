@@ -1,16 +1,17 @@
-package com.example.demo.service;
+package com.example.demo.tutorial.service;
 
-import com.example.demo.dto.CreateTutorialDto;
-import com.example.demo.dto.UpdateTutorialDto;
+import com.example.demo.tutorial.dto.CreateTutorialDto;
+import com.example.demo.tutorial.dto.UpdateTutorialDto;
 import com.example.demo.exception.PostgresErrorHandler;
 import com.example.demo.exception.PostgresErrorMessage;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.mapper.TutorialMapper;
-import com.example.demo.model.Tutorial;
-import com.example.demo.repositary.TutorialRepository;
+import com.example.demo.tutorial.mapper.TutorialMapper;
+import com.example.demo.tutorial.model.Tutorial;
+import com.example.demo.tutorial.repositary.TutorialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class TutorialService {
         try {
             Tutorial tutorial = this.tutorialMapper.toEntity(createTutorialDto);
             return tutorialRepository.save(tutorial);
-        } catch (DataAccessException e) {
+        } catch (DbActionExecutionException e) {
             logger.error("Failed to create tutorial {}", e.getMessage(), e);
             throw PostgresErrorHandler.mapToHttpException(
                     e, new PostgresErrorMessage(
@@ -55,7 +56,7 @@ public class TutorialService {
             this.tutorialMapper.updateEntityFromDto(updateTutorialDto, existingTutorial.get());
             
             return tutorialRepository.save(existingTutorial.get());
-        } catch (DataAccessException e) {
+        } catch (DbActionExecutionException e) {
             logger.error("Failed to update tutorial with id: {}. Cause: {}", id, e.getMessage(), e);
             throw PostgresErrorHandler.mapToHttpException(e);
         }
@@ -64,7 +65,7 @@ public class TutorialService {
     public List<Tutorial> findAll() {
         try {
             return this.tutorialRepository.findAll();
-        } catch (DataAccessException e) {
+        } catch (DbActionExecutionException e) {
             logger.error("Failed to find all tutorials");
             throw PostgresErrorHandler.mapToHttpException(e);
         }
@@ -72,12 +73,12 @@ public class TutorialService {
     
     public void delete(UUID id) {
         try {
-            Tutorial existingTutorial = this.tutorialRepository.findById(id);
-            if (existingTutorial == null) throw new ResourceNotFoundException(
+            Optional<Tutorial> existingTutorial = this.tutorialRepository.findById(id);
+            if (existingTutorial.isEmpty()) throw new ResourceNotFoundException(
                     String.format("Tutorial with id: %s not found", id)
             );
             this.tutorialRepository.deleteById(id);
-        } catch (DataAccessException e) {
+        } catch (DbActionExecutionException e) {
             logger.error("Failed to delete tutorial by id: {}", id);
             throw PostgresErrorHandler.mapToHttpException(e);
         }

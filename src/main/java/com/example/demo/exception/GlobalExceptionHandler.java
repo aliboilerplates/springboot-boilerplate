@@ -1,6 +1,6 @@
 package com.example.demo.exception;
 
-import com.example.demo.payload.ApiResponseBody;
+import com.example.demo.tutorial.payload.ApiResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -53,7 +53,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponseBody<String>> handleResourceNotFoundException(
             NoResourceFoundException ex
     ) {
-        ApiResponseBody<String> res = new ApiResponseBody<>("Endpoint Not Found", HttpStatus.NOT_FOUND);
+        ApiResponseBody<String> res = new ApiResponseBody<>(
+                "Endpoint Not Found",
+                HttpStatus.NOT_FOUND
+        );
         return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
     }
     
@@ -79,6 +82,7 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponseBody<Void>> handleOtherException(Exception ex) {
+        logger.error("Unknown exception caught in exception handler: {}", ex.getMessage(), ex);
         ApiResponseBody<Void> res = new ApiResponseBody<>(
                 "Internal Server Error",
                 HttpStatus.INTERNAL_SERVER_ERROR

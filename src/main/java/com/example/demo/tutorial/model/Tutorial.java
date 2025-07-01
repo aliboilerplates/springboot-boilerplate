@@ -1,9 +1,11 @@
-package com.example.demo.model;
+package com.example.demo.tutorial.model;
+
+import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
 public class Tutorial {
-    private UUID id;
+    @Id private UUID id;
     private String title;
     private String description;
     private boolean published;

@@ -1,6 +1,6 @@
-package com.example.demo.repositary;
+package com.example.demo.tutorial.repositary;
 
-import com.example.demo.model.Tutorial;
+import com.example.demo.tutorial.model.Tutorial;
 import org.springframework.data.repository.ListCrudRepository;
 
 

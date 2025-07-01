@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.tutorial.dto;
 
 public class UpdateTutorialDto {
     private String title;

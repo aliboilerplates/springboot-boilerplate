@@ -1,8 +1,8 @@
-package com.example.demo.mapper;
+package com.example.demo.tutorial.mapper;
 
-import com.example.demo.dto.CreateTutorialDto;
-import com.example.demo.dto.UpdateTutorialDto;
-import com.example.demo.model.Tutorial;
+import com.example.demo.tutorial.dto.CreateTutorialDto;
+import com.example.demo.tutorial.dto.UpdateTutorialDto;
+import com.example.demo.tutorial.model.Tutorial;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

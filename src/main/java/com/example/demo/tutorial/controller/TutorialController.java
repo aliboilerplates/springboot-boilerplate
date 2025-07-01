@@ -1,10 +1,10 @@
-package com.example.demo.controller;
+package com.example.demo.tutorial.controller;
 
-import com.example.demo.dto.CreateTutorialDto;
-import com.example.demo.dto.UpdateTutorialDto;
-import com.example.demo.model.Tutorial;
-import com.example.demo.payload.ApiResponseBody;
-import com.example.demo.service.TutorialService;
+import com.example.demo.tutorial.dto.CreateTutorialDto;
+import com.example.demo.tutorial.dto.UpdateTutorialDto;
+import com.example.demo.tutorial.model.Tutorial;
+import com.example.demo.tutorial.payload.ApiResponseBody;
+import com.example.demo.tutorial.service.TutorialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
