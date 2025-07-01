@@ -2,16 +2,18 @@ package com.example.demo.repositary;
 
 import com.example.demo.model.Tutorial;
 
+
 import java.util.List;
+import java.util.UUID;
 
 public interface TutorialRepository {
-    int save(Tutorial tutorial);
+    Tutorial save(Tutorial tutorial);
     
-    int update(Tutorial tutorial);
+    Tutorial update(Tutorial tutorial);
     
-    Tutorial findById(Long id);
+    Tutorial findById(UUID id);
     
-    int deleteById(Long id);
+    void deleteById(UUID id);
     
     List<Tutorial> findAll();
     
@@ -19,6 +21,6 @@ public interface TutorialRepository {
     
     List<Tutorial> findByTitleContaining(String title);
     
-    int deleteAll();
+    void deleteAll();
     
 }

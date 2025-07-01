@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
+import java.util.UUID;
+
 public class Tutorial {
-    private String id;
+    private UUID id;
     private String title;
     private String description;
     private boolean published;
@@ -11,7 +13,7 @@ public class Tutorial {
     
     ;
     
-    Tutorial(String id, String title, String description, Boolean published) {
+    Tutorial(UUID id, String title, String description, Boolean published) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -24,11 +26,11 @@ public class Tutorial {
         this.published = published;
     }
     
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
     
-    public String getId() {
+    public UUID getId() {
         return id;
     }
     

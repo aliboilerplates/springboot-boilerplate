@@ -3,7 +3,7 @@ package com.example.demo.payload;
 
 import org.springframework.http.HttpStatus;
 
-public class ApiResponse<T> {
+public class ApiResponseBody<T> {
     
     private int statusCode;
     
@@ -11,22 +11,22 @@ public class ApiResponse<T> {
     
     private T data;
     
-    public ApiResponse() {
+    public ApiResponseBody() {
     
     }
     
-    public ApiResponse(String message, HttpStatus status, T data) {
+    public ApiResponseBody(String message, HttpStatus status, T data) {
         this.statusCode = status.value();
         this.message = message;
         this.data = data;
     }
     
-    public ApiResponse(String message, HttpStatus status) {
+    public ApiResponseBody(String message, HttpStatus status) {
         this.message = message;
         this.statusCode = status.value();
     }
     
-    public ApiResponse(T data) {
+    public ApiResponseBody(T data) {
         this.message = "Success";
         this.statusCode = HttpStatus.OK.value();
         this.data = data;

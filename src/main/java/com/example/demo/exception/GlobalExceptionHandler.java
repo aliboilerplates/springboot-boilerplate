@@ -1,11 +1,12 @@
 package com.example.demo.exception;
 
-import com.example.demo.payload.ApiResponse;
+import com.example.demo.payload.ApiResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,9 +21,9 @@ public class GlobalExceptionHandler {
             LoggerFactory.getLogger(GlobalExceptionHandler.class);
     
     @ExceptionHandler(HttpException.class)
-    public ResponseEntity<ApiResponse<String>> handleHttpException(HttpException ex) {
+    public ResponseEntity<ApiResponseBody<String>> handleHttpException(HttpException ex) {
         return new ResponseEntity<>(
-                new ApiResponse<>(
+                new ApiResponseBody<>(
                         ex.getMessage(),
                         ex.getStatusCode()
                 ),
@@ -32,14 +33,14 @@ public class GlobalExceptionHandler {
     
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationErrors(
+    public ResponseEntity<ApiResponseBody<Map<String, String>>> handleValidationErrors(
             MethodArgumentNotValidException ex
     ) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage())
         );
-        ApiResponse<Map<String, String>> res = new ApiResponse<>(
+        ApiResponseBody<Map<String, String>> res = new ApiResponseBody<>(
                 "Validation Failed",
                 HttpStatus.BAD_REQUEST,
                 errors
@@ -49,18 +50,18 @@ public class GlobalExceptionHandler {
     
     
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ApiResponse<String>> handleResourceNotFoundException(
+    public ResponseEntity<ApiResponseBody<String>> handleResourceNotFoundException(
             NoResourceFoundException ex
     ) {
-        ApiResponse<String> res = new ApiResponse<>("Endpoint Not Found", HttpStatus.NOT_FOUND);
+        ApiResponseBody<String> res = new ApiResponseBody<>("Endpoint Not Found", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
     }
     
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiResponse<Void>> handleMessageNotReadableException(
+    public ResponseEntity<ApiResponseBody<Void>> handleMessageNotReadableException(
             HttpMessageNotReadableException ex
     ) {
-        ApiResponse<Void> res = new ApiResponse<>(
+        ApiResponseBody<Void> res = new ApiResponseBody<>(
                 "Required Request body is missing",
                 HttpStatus.BAD_REQUEST
         );
@@ -68,10 +69,21 @@ public class GlobalExceptionHandler {
     }
     
     
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ApiResponseBody<Void>> handleMethodNotSupportedException(
+            HttpRequestMethodNotSupportedException ex
+    ) {
+        ApiResponseBody<Void> res = new ApiResponseBody<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+    }
+    
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleOtherException(Exception ex) {
-        logger.error("Unknown exception caught: {}", ex.getMessage(), ex);
-        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ApiResponseBody<Void>> handleOtherException(Exception ex) {
+        ApiResponseBody<Void> res = new ApiResponseBody<>(
+                "Internal Server Error",
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
+        return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
     
