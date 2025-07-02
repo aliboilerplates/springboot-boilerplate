@@ -2,7 +2,7 @@ package com.example.demo.tutorial.mapper;
 
 import com.example.demo.tutorial.dto.CreateTutorialDto;
 import com.example.demo.tutorial.dto.UpdateTutorialDto;
-import com.example.demo.tutorial.model.Tutorial;
+import com.example.demo.tutorial.entity.Tutorial;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

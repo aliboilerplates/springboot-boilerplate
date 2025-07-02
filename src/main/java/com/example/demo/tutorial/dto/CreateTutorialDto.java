@@ -1,11 +1,13 @@
 package com.example.demo.tutorial.dto;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class CreateTutorialDto {
     
     @NotBlank(message = "Title is required")
+    @Max(100)
     private String title;
     
     @NotBlank(message = "Description is required")

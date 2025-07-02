@@ -2,15 +2,14 @@ package com.example.demo.tutorial.service;
 
 import com.example.demo.tutorial.dto.CreateTutorialDto;
 import com.example.demo.tutorial.dto.UpdateTutorialDto;
-import com.example.demo.exception.PostgresErrorHandler;
-import com.example.demo.exception.PostgresErrorMessage;
-import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.shared.exception.PostgresErrorHandler;
+import com.example.demo.shared.exception.PostgresErrorMessage;
+import com.example.demo.shared.exception.ResourceNotFoundException;
 import com.example.demo.tutorial.mapper.TutorialMapper;
-import com.example.demo.tutorial.model.Tutorial;
+import com.example.demo.tutorial.entity.Tutorial;
 import com.example.demo.tutorial.repositary.TutorialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
@@ -83,4 +82,6 @@ public class TutorialService {
             throw PostgresErrorHandler.mapToHttpException(e);
         }
     }
+    
+    
 }

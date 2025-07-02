@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package com.example.demo.shared.exception;
 
 public class PostgresErrorMessage {
     private String uniqueConstraintViolationMessage;

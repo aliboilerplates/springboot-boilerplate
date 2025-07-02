@@ -2,7 +2,7 @@ package com.example.demo.tutorial.controller;
 
 import com.example.demo.tutorial.dto.CreateTutorialDto;
 import com.example.demo.tutorial.dto.UpdateTutorialDto;
-import com.example.demo.tutorial.model.Tutorial;
+import com.example.demo.tutorial.entity.Tutorial;
 import com.example.demo.tutorial.payload.ApiResponseBody;
 import com.example.demo.tutorial.service.TutorialService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/v1/tutorials")
+@RequestMapping("tutorials")
 @Tag(name = "Tutorials", description = "Tutorial management APIs")
 public class TutorialController {
     

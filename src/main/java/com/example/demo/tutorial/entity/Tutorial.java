@@ -1,4 +1,4 @@
-package com.example.demo.tutorial.model;
+package com.example.demo.tutorial.entity;
 
 import org.springframework.data.annotation.Id;
 
