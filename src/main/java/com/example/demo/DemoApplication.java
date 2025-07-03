@@ -18,11 +18,7 @@ public class DemoApplication {
                 DemoApplication.class,
                 args
         );
-        
-        TutorialService tutorialService = applicationContext.getBean(TutorialService.class);
-        List<Tutorial> tutorials = tutorialService.findAll();
-        
-        
+        System.out.println("Hello");
     }
     
     @Bean

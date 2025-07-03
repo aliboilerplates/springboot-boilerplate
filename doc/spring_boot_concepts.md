@@ -19,3 +19,8 @@ Spring Framework is the foundation for spring ecosystem. It provides foundation 
 	- **Dispatcher Servlet**: It acts as a front controller. When requests reaches it, It determines the appropriate controller to manage it.
 - **Spring Data Access**: It provides basic tools to connect to SQL database and to build your persistent layer.
 - **Spring Testing**: It is used to write all the tests for your spring application.
+
+
+## What is Spring Boot?
+
+Spring Boot is a project and part of spring large ecosystem. It introduces the concepts of **Convention Over Configuration** meaning instead of setting all configurations of a framework yourself, spring boot offers you a default configuration which you can customize as needed.

@@ -22,7 +22,6 @@ public class TutorialService {
     private final static Logger logger =
             LoggerFactory.getLogger(TutorialService.class);
     
-    
     private final TutorialRepository tutorialRepository;
     private final TutorialMapper tutorialMapper;
     
